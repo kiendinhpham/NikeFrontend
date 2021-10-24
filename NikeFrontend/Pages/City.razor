@@ -1,0 +1,40 @@
+﻿@page "/districts"
+
+<h3>Cities</h3>
+
+@if (string.IsNullOrWhiteSpace(districtMessage))
+{
+    @if (listDistricts == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>City ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var district in listDistricts)
+                {
+                    <tr>
+                        <td>@district.id</td>
+                        <td>@district.name</td>
+                        <td>@district.cityId</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+}
+else
+{
+    <p>@districtMessage</p>
+}
+
+
+
