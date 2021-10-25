@@ -32,5 +32,27 @@ namespace NikeFrontend.Services
 
             return await Task.FromResult(returnedUser);
         }
+
+        public async Task<UserDataFromTokenRoot> GetUserByAccessTokenAsync(string token)
+        {
+            StringToken stringToken = new StringToken();
+            stringToken.Token = token;
+
+            string serializedToken = JsonConvert.SerializeObject(stringToken);
+
+            var requestMessage = new HttpRequestMessage(HttpMethod.Post, "Login/check");
+            requestMessage.Content = new StringContent(serializedToken);
+
+            requestMessage.Content.Headers.ContentType
+                = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+
+            var response = await _httpClient.SendAsync(requestMessage);
+
+            var responseBody = await response.Content.ReadAsStringAsync();
+
+            var returnedUser = JsonConvert.DeserializeObject<UserDataFromTokenRoot>(responseBody);
+
+            return await Task.FromResult(returnedUser);
+        }
     }
 }
