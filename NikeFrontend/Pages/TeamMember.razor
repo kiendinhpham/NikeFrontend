@@ -1,10 +1,10 @@
-﻿@page "/districts"
+﻿@page "/team"
 
-<h3>Cities</h3>
+<h3>Team Members</h3>
 
-@if (string.IsNullOrWhiteSpace(districtMessage))
+@if (string.IsNullOrWhiteSpace(teamMemberApiMessage))
 {
-    @if (listDistricts == null)
+    @if (listTeamMember == null)
     {
         <p><em>Loading...</em></p>
     }
@@ -15,16 +15,16 @@
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
-                    <th>City ID</th>
+                    <th>Role</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var district in listDistricts)
+                @foreach (var teamMember in listTeamMember)
                 {
                     <tr>
-                        <td>@district.id</td>
-                        <td>@district.name</td>
-                        <td>@district.cityId</td>
+                        <td>@teamMember.id</td>
+                        <td>@teamMember.name</td>
+                        <td>@teamMember.role</td>
                     </tr>
                 }
             </tbody>
@@ -33,7 +33,7 @@
 }
 else
 {
-    <p>@districtMessage</p>
+    <p>@teamMemberApiMessage</p>
 }
 
 

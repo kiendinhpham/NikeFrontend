@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace NikeFrontend.Data
 {
@@ -23,4 +24,5 @@ namespace NikeFrontend.Data
         public bool succeeded { get; set; }
         public object error { get; set; }
     }
+
 }

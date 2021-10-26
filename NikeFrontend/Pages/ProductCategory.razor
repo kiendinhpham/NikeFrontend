@@ -19,11 +19,11 @@ else
         <tbody>
             @foreach (var productCategory in listProductCategory)
             {
-                <tr>
-                    <td>@productCategory.id</td>
-                    <td>@productCategory.name</td>
-                    <td>@productCategory.createDate</td>
-                </tr>
+            <tr>
+                <td>@productCategory.id</td>
+                <td>@productCategory.name</td>
+                <td>@DateTime.Parse(productCategory.createDate).ToString("MM/dd/yyyy HH:mm")</td>
+            </tr>
             }
         </tbody>
     </table>

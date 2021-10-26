@@ -32,11 +32,12 @@ namespace NikeFrontend
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            services.AddBlazoredSessionStorage();
             //API Service--->//
 
-            services.AddSingleton<WeatherForecastService>();
-            services.AddSingleton<ProductService>();
-            services.AddSingleton<ProductCategoryService>();
+            services.AddTransient<ProductService>();
+            services.AddTransient<ProductCategoryService>();
+            services.AddTransient<TeamMemberService>();
 
             //<---API Service//
             services.AddTransient<ValidateHeaderHandler>();
@@ -60,7 +61,7 @@ namespace NikeFrontend
             {
                 x.BaseAddress = new Uri(Configuration.GetValue<string>("KeyboardSlingerAPI"));
             });
-            services.AddBlazoredSessionStorage();
+            
             services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
             services.AddSingleton<HttpClient>();
         }
