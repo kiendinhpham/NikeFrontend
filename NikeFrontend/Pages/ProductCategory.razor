@@ -1,0 +1,32 @@
+﻿@page "/productcategory"
+
+<h3>Product Category</h3>
+
+@if (listProductCategory == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Create Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var productCategory in listProductCategory)
+            {
+                <tr>
+                    <td>@productCategory.id</td>
+                    <td>@productCategory.name</td>
+                    <td>@productCategory.createDate</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+

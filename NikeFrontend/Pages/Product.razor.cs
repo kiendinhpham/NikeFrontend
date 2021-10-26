@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
 using NikeFrontend.Data;
+using NikeFrontend.Services;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Json;
 using System.Threading.Tasks;
 
 namespace NikeFrontend.Pages
@@ -13,41 +13,38 @@ namespace NikeFrontend.Pages
         [Inject]
         public IHttpClientFactory _clientFactory { get; set; }
 
+        [Inject]
+        public ProductService _productService { get; set; }
+
+        public ListProductModelRoot listProductResult { get; set; }
+        public SingleProductModelRoot productResult { get; set; }
+
         public List<ProductModel> listProduct { get; set; }
         public ProductModel product { get; set; }
 
-        protected override async Task OnInitializedAsync()
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            await Task.Run(getListProduct);
+            Console.WriteLine("Product - OnAfterRenderAsync - firstRender = " + firstRender);
+
+            if (firstRender)
+            {
+                await getListProduct();
+                StateHasChanged();
+            }
+
+            await base.OnAfterRenderAsync(firstRender);
         }
 
         public async Task getListProduct()
         {
-            var client = _clientFactory.CreateClient("KSC");
-            try
-            {
-                var result = await client.GetFromJsonAsync<ListProductModelRoot>("Products");
-                listProduct = result.data;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error: {ex.Message}");
-            }
+            listProductResult = await _productService.getListProduct();
+            listProduct = listProductResult.data;
         }
 
         public async Task getProduct(int id)
         {
-            Console.WriteLine("run get product by id");
-            var client = _clientFactory.CreateClient("KSC");
-            try
-            {
-                var result = await client.GetFromJsonAsync<SingleProductModelRoot>($"Products/{id}");
-                product = result.data;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error: {ex.Message}");
-            }
+            productResult = await _productService.getProduct(id);
+            product = productResult.data;
         }
     }
 }

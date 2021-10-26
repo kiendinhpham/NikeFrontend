@@ -32,7 +32,13 @@ namespace NikeFrontend
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();       
+            //API Service--->//
+
+            services.AddSingleton<WeatherForecastService>();
+            services.AddSingleton<ProductService>();
+            services.AddSingleton<ProductCategoryService>();
+
+            //<---API Service//
             services.AddTransient<ValidateHeaderHandler>();
             services.AddHttpClient();
             services.AddHttpClient("local", client =>
