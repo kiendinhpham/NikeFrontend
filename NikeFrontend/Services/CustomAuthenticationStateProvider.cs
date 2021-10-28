@@ -56,6 +56,7 @@ namespace NikeFrontend.Services
                 claimsIdentity = new ClaimsIdentity(new[]
                                 {
                                     new Claim(ClaimTypes.Name, user.data.userName),
+                                    new Claim(ClaimTypes.Role, user.data.roles[0].name)
                                 }, "apiauth_type");
             }
 

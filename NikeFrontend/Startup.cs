@@ -41,6 +41,7 @@ namespace NikeFrontend
 
             //<---API Service//
             services.AddTransient<ValidateHeaderHandler>();
+            services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
             services.AddHttpClient();
             services.AddHttpClient("local", client =>
             {
@@ -62,7 +63,7 @@ namespace NikeFrontend
                 x.BaseAddress = new Uri(Configuration.GetValue<string>("KeyboardSlingerAPI"));
             });
             
-            services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
+            
             services.AddSingleton<HttpClient>();
         }
 

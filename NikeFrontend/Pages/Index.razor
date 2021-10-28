@@ -5,36 +5,42 @@
 
 <h1>Goodbye, world!</h1>
 
+
+
 <AuthorizeView>
     <Authorized>
-        <p> Welcome,  @context.User.Identity.Name </p>
-        <p style="color:green">User Authenticated</p>
+        <h3><b>Welcome @user.Identity.Name</b></h3>
     </Authorized>
     <NotAuthorized>
-        <p> Welcome, guest </p>
-        <p style="color:red">User Not Authenticated</p>
+        <h3><b>User is logged out</b></h3>
     </NotAuthorized>
 </AuthorizeView>
 
+<AuthorizeView Roles="Administrator">
+    <Authorized>
+        <h3><b>You are an admin</b></h3>
+    </Authorized>
+</AuthorizeView>
 
 @code{
 
-    private string isUserAuth { set; get; }
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+    ClaimsPrincipal user;
+
+
+    bool IsUserAuthenticated;
+    bool IsAdmin;
 
     protected override async Task OnInitializedAsync()
     {
+        user = (await authenticationStateTask).User;
 
-        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        var user = authState.User;
+        if (user.IsInRole("Administrator"))
+            IsAdmin = true;
 
         if (user.Identity.IsAuthenticated)
-        {
-            isUserAuth = "yes";
-        }
-        else
-        {
-            isUserAuth = "no";
-        }
+            IsUserAuthenticated = true;
     }
 
 }

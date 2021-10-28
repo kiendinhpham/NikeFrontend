@@ -18,8 +18,15 @@ namespace NikeFrontend.Data
         public string id { get; set; }
         public string userName { get; set; }
         public string email { get; set; }
+        public List<Role> roles { get; set; }
     }
-
+    public class Role
+    {
+        public string id { get; set; }
+        public string name { get; set; }
+        public string normalizedName { get; set; }
+        public string concurrencyStamp { get; set; }
+    }
     public class StringToken
     {
         public string Token { get; set; }

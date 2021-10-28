@@ -28,6 +28,7 @@ namespace NikeFrontend.Pages
 
         private async Task<bool> CheckUser()
         {
+            LoginMesssage = "Vui lòng chờ...";
             var returnUser = await _userService.LoginAsync(user);
 
             if (returnUser.succeeded)
@@ -36,7 +37,7 @@ namespace NikeFrontend.Pages
                 await sessionStorage.SetItemAsync("token", returnUser.data.token);
 
                 ((CustomAuthenticationStateProvider)AuthenticationStateProvider).MarkUserAsAuthenticated(user.userName);
-                NavigationManager.NavigateTo("/");
+                NavigationManager.NavigateTo("/",true);          
             }
             else
             {

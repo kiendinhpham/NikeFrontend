@@ -12,15 +12,14 @@
         </div>
 
         <!-- Login Form -->
-        @*<form>
-            <input type="text" id="login" class="fadeIn second" name="login" placeholder="Tên đăng nhập">
-            <input type="text" id="password" class="fadeIn third" name="login" placeholder="Mật khẩu">
-            <input type="submit" class="fadeIn fourth" value="Đăng nhập">
-        </form>*@
         <EditForm Model="@user" OnSubmit="@CheckUser">
             <input @bind="user.userName" type="text" id="login" class="fadeIn second" name="login" placeholder="Tên đăng nhập">
             <input @bind="user.Password" type="password" id="password" class="fadeIn third" name="login" placeholder="Mật khẩu">
             <input type="submit" class="fadeIn fourth" value="Đăng nhập">
         </EditForm>
+
+        <div id="formFooter">
+            <p>@LoginMesssage</p>
+        </div>
     </div>
 </div>
