@@ -1,41 +1,52 @@
 ﻿@page "/team"
-@attribute [Authorize]
 
-<h3>Team Members</h3>
+    <AuthorizeView>
+        <Authorized>
 
-@if (string.IsNullOrWhiteSpace(teamMemberApiMessage))
-{
-    @if (listTeamMember == null)
-    {
-        <p><em>Loading...</em></p>
-    }
-    else
-    {
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Role</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var teamMember in listTeamMember)
+            <h3>Team Members</h3>
+
+            @if (string.IsNullOrWhiteSpace(teamMemberApiMessage))
+            {
+                @if (listTeamMember == null)
                 {
-                    <tr>
-                        <td>@teamMember.id</td>
-                        <td>@teamMember.name</td>
-                        <td>@teamMember.role</td>
-                    </tr>
+                    <p><em>Loading...</em></p>
                 }
-            </tbody>
-        </table>
-    }
-}
-else
-{
-    <p>@teamMemberApiMessage</p>
-}
+                else
+                {
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Role</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var teamMember in listTeamMember)
+                            {
+                                <tr>
+                                    <td>@teamMember.id</td>
+                                    <td>@teamMember.name</td>
+                                    <td>@teamMember.role</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            }
+            else
+            {
+                <p>@teamMemberApiMessage</p>
+            }
+        <img class="img-fluid" src="https://cdnb.artstation.com/p/assets/images/images/034/657/147/4k/klaher-baklaher-bloodangels2.jpg?1612876829" />
+        </Authorized>
+        <NotAuthorized>
+            <h4><b>Đăng nhập để xem trang này</b></h4>
+        </NotAuthorized>
+    </AuthorizeView>
+
+
+
 
 
 

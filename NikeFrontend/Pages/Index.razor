@@ -3,24 +3,18 @@
 @using Microsoft.AspNetCore.Components.Authorization
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
-<h1>Goodbye, world!</h1>
-
-
 
 <AuthorizeView>
     <Authorized>
-        <h3><b>Welcome @user.Identity.Name</b></h3>
+        <h3><b>Logged in as @user.Identity.Name</b></h3>
+        <img class="img-fluid" src="https://cdna.artstation.com/p/assets/images/images/001/487/624/large/johan-grenier-ravenguard-web.jpg?1447273896" />
     </Authorized>
     <NotAuthorized>
-        <h3><b>User is logged out</b></h3>
+        <h3><b>Welcome Guest</b></h3>
+        <img class="img-fluid" src="https://cdna.artstation.com/p/assets/images/images/028/965/052/4k/filipe-pagliuso-13.jpg?1596045981" />
     </NotAuthorized>
 </AuthorizeView>
 
-<AuthorizeView Roles="Administrator">
-    <Authorized>
-        <h3><b>You are an admin</b></h3>
-    </Authorized>
-</AuthorizeView>
 
 @code{
 

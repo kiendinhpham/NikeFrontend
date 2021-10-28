@@ -1,14 +1,12 @@
 ﻿@page "/admin"
-@attribute [Authorize(Roles = "Administrator")]
-@using Microsoft.AspNetCore.Components.Authorization
-@using System.Security.Claims
-@using NikeFrontend.Services
-@inject AuthenticationStateProvider AuthenticationStateProvider
 
-<h3>Admin Panel</h3>
+<AuthorizeView Roles="Administrator">
+    <Authorized >
 
-<p>chỉ có admin mới xem được trang này</p>
-
-@code{        
-
-}
+        <h4><b>Welcome Captain</b></h4>
+        <img class="img-fluid" src="https://cdnb.artstation.com/p/assets/images/images/022/996/811/4k/paul-canavan-warriors.jpg?1577648659" />
+    </Authorized>
+    <NotAuthorized>
+        <h4><b>Đăng nhập với quyền admin để xem trang này</b></h4>
+    </NotAuthorized>
+</AuthorizeView>

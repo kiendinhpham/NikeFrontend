@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Components.Authorization;
 using NikeFrontend.Data;
 using NikeFrontend.Services;
-using System.Security.Claims;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace NikeFrontend.Pages
@@ -22,26 +22,31 @@ namespace NikeFrontend.Pages
         public Blazored.SessionStorage.ISessionStorageService sessionStorage { get; set; }
 
         private User user = new User();
-
-        private ClaimsPrincipal claimsPrincipal;
+        private bool isTaskRunning = false;
         public string LoginMesssage { get; set; }
+        public string loginButtonText = "Đăng Nhập";
 
         private async Task<bool> CheckUser()
         {
-            LoginMesssage = "Vui lòng chờ...";
+            LoginMesssage = "";
+            isTaskRunning = true;
+            loginButtonText = "Vui lòng chờ...";
             var returnUser = await _userService.LoginAsync(user);
 
             if (returnUser.succeeded)
             {
+                Thread.Sleep(3000);
                 await sessionStorage.SetItemAsync("userName", user.userName);
                 await sessionStorage.SetItemAsync("token", returnUser.data.token);
 
                 ((CustomAuthenticationStateProvider)AuthenticationStateProvider).MarkUserAsAuthenticated(user.userName);
-                NavigationManager.NavigateTo("/",true);          
+                NavigationManager.NavigateTo("/",true);     
             }
             else
             {
-                LoginMesssage = "Tài khoản hoặc mật khấu sai";
+                isTaskRunning = false;
+                loginButtonText = "Đăng Nhập";
+                LoginMesssage = "Tài khoản hoặc mật khẩu sai";
             }
 
             return await Task.FromResult(true);
