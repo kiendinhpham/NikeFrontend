@@ -35,7 +35,6 @@ namespace NikeFrontend.Pages
 
             if (returnUser.succeeded)
             {
-                Thread.Sleep(3000);
                 await sessionStorage.SetItemAsync("userName", user.userName);
                 await sessionStorage.SetItemAsync("token", returnUser.data.token);
 
