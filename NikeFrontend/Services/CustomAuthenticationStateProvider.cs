@@ -51,22 +51,22 @@ namespace NikeFrontend.Services
         {
             var claimsIdentity = new ClaimsIdentity();
 
-            if (user.data.email != null)
+            if (user.data.userName != null)
             {
                 claimsIdentity = new ClaimsIdentity(new[]
                                 {
-                                    new Claim(ClaimTypes.Name, user.data.email),
+                                    new Claim(ClaimTypes.Name, user.data.userName),
                                 }, "apiauth_type");
             }
 
             return claimsIdentity;
         }
 
-        public void MarkUserAsAuthenticated(string emailAddress)
+        public void MarkUserAsAuthenticated(string userName)
         {
             var identity = new ClaimsIdentity(new[]
             {
-                new Claim(ClaimTypes.Name, emailAddress),
+                new Claim(ClaimTypes.Name, userName),
             }, "apiauth_type");
 
             var user = new ClaimsPrincipal(identity);
@@ -75,7 +75,7 @@ namespace NikeFrontend.Services
 
         public void MarkUserAsLoggedOut()
         {
-            _sessionStorageService.RemoveItemAsync("email");
+            _sessionStorageService.RemoveItemAsync("userName");
             _sessionStorageService.RemoveItemAsync("token");
 
             var identity = new ClaimsIdentity();

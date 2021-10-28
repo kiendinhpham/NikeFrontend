@@ -23,7 +23,7 @@ namespace NikeFrontend.Services
         public async Task<TeamMemberModelRootobject> getListTeamMember()
         {
             TeamMemberModelRootobject listTeamMember = new TeamMemberModelRootobject();
-            var client = _clientFactory.CreateClient("KSC_auth");
+            var client = _clientFactory.CreateClient("KSC");
             var token = await _sessionStorageService.GetItemAsync<string>("token");
             if (!string.IsNullOrEmpty(token))
             {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NikeFrontend.Pages
 {
-    public partial class Login
+    public partial class LoginV2
     {
         [Inject]
         public IUserService _userService { get; set; }
@@ -32,10 +32,10 @@ namespace NikeFrontend.Pages
 
             if (returnUser.succeeded)
             {
-                await sessionStorage.SetItemAsync("email", user.email);
+                await sessionStorage.SetItemAsync("userName", user.userName);
                 await sessionStorage.SetItemAsync("token", returnUser.data.token);
 
-                ((CustomAuthenticationStateProvider)AuthenticationStateProvider).MarkUserAsAuthenticated(user.email);
+                ((CustomAuthenticationStateProvider)AuthenticationStateProvider).MarkUserAsAuthenticated(user.userName);
                 NavigationManager.NavigateTo("/");
             }
             else

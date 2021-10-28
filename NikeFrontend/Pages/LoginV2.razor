@@ -1,0 +1,26 @@
+﻿@layout LoginLayout
+@page "/loginv2"
+
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <!-- Tabs Titles -->
+        <h2 class="active"> Đăng nhập </h2>
+
+        <!-- Icon -->
+        <div class="fadeIn first">
+            <img style="width:100%" src="/gif/justfuckit.gif" />
+        </div>
+
+        <!-- Login Form -->
+        @*<form>
+            <input type="text" id="login" class="fadeIn second" name="login" placeholder="Tên đăng nhập">
+            <input type="text" id="password" class="fadeIn third" name="login" placeholder="Mật khẩu">
+            <input type="submit" class="fadeIn fourth" value="Đăng nhập">
+        </form>*@
+        <EditForm Model="@user" OnSubmit="@CheckUser">
+            <input @bind="user.userName" type="text" id="login" class="fadeIn second" name="login" placeholder="Tên đăng nhập">
+            <input @bind="user.Password" type="password" id="password" class="fadeIn third" name="login" placeholder="Mật khẩu">
+            <input type="submit" class="fadeIn fourth" value="Đăng nhập">
+        </EditForm>
+    </div>
+</div>

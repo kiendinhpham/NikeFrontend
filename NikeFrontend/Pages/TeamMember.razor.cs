@@ -41,9 +41,8 @@ namespace NikeFrontend.Pages
             }
             else
             {
-                teamMemberApiMessage = "Bạn không có quyền xem nội dung này";
+                teamMemberApiMessage = "Có lỗi xảy ra";
             }
-            
         }
     }
 }
