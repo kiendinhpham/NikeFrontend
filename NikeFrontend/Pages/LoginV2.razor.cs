@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Components.Authorization;
 using NikeFrontend.Data;
 using NikeFrontend.Services;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace NikeFrontend.Pages
@@ -39,7 +38,7 @@ namespace NikeFrontend.Pages
                 await sessionStorage.SetItemAsync("token", returnUser.data.token);
 
                 ((CustomAuthenticationStateProvider)AuthenticationStateProvider).MarkUserAsAuthenticated(user.userName);
-                NavigationManager.NavigateTo("/",true);     
+                NavigationManager.NavigateTo("/", true);
             }
             else
             {

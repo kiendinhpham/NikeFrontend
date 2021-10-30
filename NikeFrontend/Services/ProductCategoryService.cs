@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-using NikeFrontend.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using NikeFrontend.Data;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
@@ -13,7 +9,7 @@ namespace NikeFrontend.Services
     {
         private readonly IHttpClientFactory _clientFactory;
 
-        public ProductCategoryService(IHttpClientFactory ClientFactory )
+        public ProductCategoryService(IHttpClientFactory ClientFactory)
         {
             _clientFactory = ClientFactory;
         }

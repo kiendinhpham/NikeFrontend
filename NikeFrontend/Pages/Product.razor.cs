@@ -46,5 +46,6 @@ namespace NikeFrontend.Pages
             productResult = await _productService.getProduct(id);
             product = productResult.data;
         }
+
     }
 }
