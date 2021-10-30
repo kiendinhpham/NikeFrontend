@@ -84,6 +84,7 @@ namespace NikeFrontend.Pages
             Console.WriteLine(response);
             editProduct = new ProductModel();
             await getListProduct();
+            _toastService.ShowSuccess("Product updated");
         }
 
         public async Task addProduct()
@@ -92,7 +93,7 @@ namespace NikeFrontend.Pages
             Console.WriteLine(response);
             newProduct = new ProductModel();
             await getListProduct();
-            _toastService.ShowSuccess("Add product success");
+            _toastService.ShowSuccess("New product added");
         }
 
         public async Task deleteProduct(int id)
@@ -100,7 +101,7 @@ namespace NikeFrontend.Pages
             HttpResponseMessage response = await _productService.deleteProduct(id);
             Console.WriteLine(response);
             await getListProduct();
-            _toastService.ShowSuccess("Delete product success");
+            _toastService.ShowSuccess("product deleted");
         }
 
     }
