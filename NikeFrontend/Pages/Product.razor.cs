@@ -27,6 +27,10 @@ namespace NikeFrontend.Pages
         public ProductModel product { get; set; }
 
         private ProductModel newProduct = new ProductModel();
+        private ProductModel editProduct = new ProductModel();
+
+        public int idForDelete { get; set; }
+        public string nameForDelete { get; set; }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -40,6 +44,12 @@ namespace NikeFrontend.Pages
             }
 
             await base.OnAfterRenderAsync(firstRender);
+        }
+
+        public void passDataForDeleteModal(int id, string name)
+        {
+            idForDelete = id;
+            nameForDelete = name;
         }
 
         public async Task getListProductCategory()
@@ -58,6 +68,20 @@ namespace NikeFrontend.Pages
         {
             productResult = await _productService.getProduct(id);
             product = productResult.data;
+        }
+
+        public async Task getProductForModalEdit(int id)
+        {
+            productResult = await _productService.getProduct(id);
+            editProduct = productResult.data;
+        }
+
+        public async Task updateProduct()
+        {
+            HttpResponseMessage response = await _productService.editProduct(editProduct);
+            Console.WriteLine(response);
+            editProduct = new ProductModel();
+            await getListProduct();
         }
 
         public async Task addProduct()
