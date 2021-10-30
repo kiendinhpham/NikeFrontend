@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
+using System.Threading;
 
 namespace NikeFrontend.Pages
 {
@@ -24,6 +25,8 @@ namespace NikeFrontend.Pages
         public ProductService _productService { get; set; }
         [Inject]
         public ProductCategoryService _productCategoryService { get; set; }
+        [Inject]
+        public NavigationManager NavigationManager { get; set; }
 
         public ListProductModelRoot listProductResult { get; set; }
         public SingleProductModelRoot productResult { get; set; }
@@ -62,7 +65,7 @@ namespace NikeFrontend.Pages
 
         private async Task uploadFile()
         {
-            Stream stream = file.OpenReadStream(5000000);
+            Stream stream = file.OpenReadStream(10000000);
             var path = $"{env.WebRootPath}\\img\\{file.Name}";
             FileStream fs = File.Create(path);
             await stream.CopyToAsync(fs);
@@ -102,35 +105,68 @@ namespace NikeFrontend.Pages
             editProduct = productResult.data;
         }
 
+        public void reloadPage()
+        {
+            NavigationManager.NavigateTo("/product", true);
+        }
+
+
         public async Task updateProduct()
         {
-            editProduct.image = "img/" + file.Name;
-            await uploadFile();
+            if(file != null)
+            {
+                editProduct.image = "img/" + file.Name;
+                await uploadFile();
+            }
             HttpResponseMessage response = await _productService.editProduct(editProduct);
             Console.WriteLine(response);
             editProduct = new ProductModel();
-            await getListProduct();
-            _toastService.ShowSuccess("Product updated");
+            if (response.IsSuccessStatusCode)
+            {
+                await getListProduct();
+                _toastService.ShowSuccess("Product updated");
+                //need to reload the whole app or the hosting will fucked up the new file, only god know why.
+            }
+            else
+            {
+                _toastService.ShowError("There was an error");
+            }
         }
 
         public async Task addProduct()
         {
-            newProduct.image = "img/" + file.Name;
-            await uploadFile();
+            if (file != null)
+            {
+                newProduct.image = "img/" + file.Name;
+                await uploadFile();
+            }
             HttpResponseMessage response = await _productService.addProduct(newProduct);
             Console.WriteLine(response);
-            newProduct = new ProductModel();
-            await getListProduct();
-            _toastService.ShowSuccess("New product added");
+            if (response.IsSuccessStatusCode)
+            {
+                newProduct = new ProductModel();
+                await getListProduct();
+                _toastService.ShowSuccess("New product added");
+            }
+            else
+            {
+                _toastService.ShowError("There was an error");
+            }
         }
 
         public async Task deleteProduct(int id)
         {
             HttpResponseMessage response = await _productService.deleteProduct(id);
             Console.WriteLine(response);
-            await getListProduct();
-            _toastService.ShowSuccess("product deleted");
+            if (response.IsSuccessStatusCode)
+            {
+                await getListProduct();
+                _toastService.ShowSuccess("product deleted");
+            }
+            else
+            {
+                _toastService.ShowError("There was an error");
+            }
         }
-
     }
 }
