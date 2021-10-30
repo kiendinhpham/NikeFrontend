@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Blazored.Toast.Services;
+using Microsoft.AspNetCore.Components;
 using NikeFrontend.Data;
 using NikeFrontend.Services;
 using System;
@@ -12,7 +13,8 @@ namespace NikeFrontend.Pages
     {
         [Inject]
         public IHttpClientFactory _clientFactory { get; set; }
-
+        [Inject]
+        public IToastService _toastService { get; set; }
         [Inject]
         public ProductService _productService { get; set; }
         [Inject]
@@ -90,6 +92,7 @@ namespace NikeFrontend.Pages
             Console.WriteLine(response);
             newProduct = new ProductModel();
             await getListProduct();
+            _toastService.ShowSuccess("Add product success");
         }
 
         public async Task deleteProduct(int id)
@@ -97,6 +100,7 @@ namespace NikeFrontend.Pages
             HttpResponseMessage response = await _productService.deleteProduct(id);
             Console.WriteLine(response);
             await getListProduct();
+            _toastService.ShowSuccess("Delete product success");
         }
 
     }

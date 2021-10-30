@@ -1,4 +1,5 @@
 using Blazored.SessionStorage;
+using Blazored.Toast;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -33,6 +34,7 @@ namespace NikeFrontend
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddBlazoredSessionStorage();
+            services.AddBlazoredToast();
             //API Service--->//
 
             services.AddTransient<ProductService>();

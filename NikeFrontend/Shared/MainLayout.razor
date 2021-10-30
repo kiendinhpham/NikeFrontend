@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+@using Blazored.Toast.Configuration
 
 <AuthorizeView>
     <Authorized>
@@ -10,16 +11,25 @@
             <div class="main">
                 <div class="content px-4">
                     @Body
+                    
                 </div>
             </div>
         </div>
+        
     </Authorized>
     <NotAuthorized>
         <NikeFrontend.Pages.RedirectToLogin></NikeFrontend.Pages.RedirectToLogin>
     </NotAuthorized>
 </AuthorizeView>
 
-
+<BlazoredToasts Position="ToastPosition.BottomLeft"
+                Timeout="3"
+                ShowProgressBar="true"
+                IconType="IconType.FontAwesome"
+                SuccessIcon="fas fa-check-square"
+                WarningIcon="fas fa-skull-crossbones"
+                InfoIcon="fas fa-info-circle"
+                ErrorIcon="fa fa-bug"/>
 
 
 
