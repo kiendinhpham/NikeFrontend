@@ -22,7 +22,7 @@ namespace NikeFrontend.Data
         public string name { get; set; }
         public object image { get; set; }
         public int price { get; set; }
-        public object description { get; set; }
-        public int productCategoryId { get; set; }
+        public string productCategoryName { get; set; }
     }
+
 }

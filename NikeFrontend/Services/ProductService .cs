@@ -17,7 +17,7 @@ namespace NikeFrontend.Services
         public async Task<ListProductModelRoot> getListProduct()
         {
             var client = _clientFactory.CreateClient("KSC");
-            var result = await client.GetFromJsonAsync<ListProductModelRoot>("Products");
+            var result = await client.GetFromJsonAsync<ListProductModelRoot>("Products/list");
             return await Task.FromResult(result);
         }
 

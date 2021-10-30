@@ -30,6 +30,11 @@ a, .btn-link {
     color: red;
 }
 
+.create-form {
+    margin-bottom: 2rem;
+    max-width: 800px;
+}
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;
