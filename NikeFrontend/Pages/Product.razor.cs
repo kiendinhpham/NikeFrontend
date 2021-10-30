@@ -15,12 +15,18 @@ namespace NikeFrontend.Pages
 
         [Inject]
         public ProductService _productService { get; set; }
+        [Inject]
+        public ProductCategoryService _productCategoryService { get; set; }
 
         public ListProductModelRoot listProductResult { get; set; }
         public SingleProductModelRoot productResult { get; set; }
+        public ProductCategoryModelRootobject listProductCategoryResult { get; set; }
+        public List<ProductCategoryModel> listProductCategory { get; set; }
 
         public List<ProductModel> listProduct { get; set; }
         public ProductModel product { get; set; }
+
+        private ProductModel newProduct = new ProductModel();
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -28,11 +34,18 @@ namespace NikeFrontend.Pages
 
             if (firstRender)
             {
+                await getListProductCategory();
                 await getListProduct();
                 StateHasChanged();
             }
 
             await base.OnAfterRenderAsync(firstRender);
+        }
+
+        public async Task getListProductCategory()
+        {
+            listProductCategoryResult = await _productCategoryService.getListProductCategory();
+            listProductCategory = listProductCategoryResult.data;
         }
 
         public async Task getListProduct()
@@ -45,6 +58,14 @@ namespace NikeFrontend.Pages
         {
             productResult = await _productService.getProduct(id);
             product = productResult.data;
+        }
+
+        public async Task addProduct()
+        {
+            HttpResponseMessage response = await _productService.addProduct(newProduct);
+            Console.WriteLine(response);
+            newProduct = new ProductModel();
+            await getListProduct();
         }
 
     }

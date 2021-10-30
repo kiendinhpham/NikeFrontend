@@ -1,4 +1,5 @@
-﻿using NikeFrontend.Data;
+﻿using Blazored.SessionStorage;
+using NikeFrontend.Data;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
@@ -8,10 +9,13 @@ namespace NikeFrontend.Services
     public class ProductCategoryService
     {
         private readonly IHttpClientFactory _clientFactory;
+        private readonly ISessionStorageService _sessionStorageService;
 
-        public ProductCategoryService(IHttpClientFactory ClientFactory)
+        public ProductCategoryService(IHttpClientFactory ClientFactory,
+            ISessionStorageService SessionStorageService)
         {
             _clientFactory = ClientFactory;
+            _sessionStorageService = SessionStorageService;
         }
 
         public async Task<ProductCategoryModelRootobject> getListProductCategory()

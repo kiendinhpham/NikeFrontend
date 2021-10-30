@@ -3,30 +3,37 @@
 <h3>Products</h3>
 
 <div class="create-form">
-    <form>
+    <EditForm Model="@newProduct" OnValidSubmit="@(()=>addProduct())">
         <div class="form-group row">
-            <label for="staticEmail" class="col-sm-2 col-form-label">Product Name</label>
+            <label for="newProductName" class="col-sm-2 col-form-label">Product Name</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="staticEmail" placeholder="Product Name">
+                <input @bind="newProduct.name" type="text" class="form-control" id="newProductName" placeholder="Product Name">
             </div>
         </div>
         <div class="form-group row">
-            <label for="inputPassword" class="col-sm-2 col-form-label">Price</label>
+            <label for="newProductPrice" class="col-sm-2 col-form-label">Price</label>
             <div class="col-sm-10">
-                <input type="number" class="form-control" id="inputPassword" placeholder="Price">
+                <input @bind="newProduct.price" type="number" class="form-control" id="newProductPrice" placeholder="Price">
             </div>
         </div>
         <div class="form-group row">
-            <label for="inputPassword" class="col-sm-2 col-form-label">Category</label>
+            <label for="newCategoryOfProduct" class="col-sm-2 col-form-label">Category</label>
             <div class="col-sm-10">
-                <select id="inputState" class="form-control">
+                <select @bind="@newProduct.productCategoryId" id="newCategoryOfProduct" class="form-control">
                     <option selected>Choose...</option>
-                    <option>...</option>
+                    @if (listProductCategory != null)
+                    {
+                        @foreach (var productCategory in listProductCategory)
+                        {
+                            <option value="@productCategory.id">@productCategory.name</option>
+                        }
+                    }
+
                 </select>
             </div>
         </div>
-        <button type="button" class="btn btn-primary">Add Product</button>
-    </form>
+        <button type="submit" class="btn btn-primary">Add Product</button>
+    </EditForm>
 </div>
 
 
@@ -40,7 +47,7 @@ else
 <table class="table">
     <thead>
         <tr>
-            <th>ID</th>
+            <th>Index</th>
             <th>Name</th>
             <th>Price</th>
             <th>Category</th>
@@ -48,19 +55,21 @@ else
         </tr>
     </thead>
     <tbody>
+        @{ int i = 1;}
         @foreach (var product in listProduct)
-            {
-        <tr>
-            <td>@product.id</td>
-            <td>@product.name</td>
-            <td>@product.price</td>
-            <td>@product.productCategoryName</td>
-            <th>
-                <a style="cursor:pointer; color:blue">Edit</a> |
-                <a style="cursor:pointer; color:blue">Delete</a>
-            </th>
-        </tr>
-            }
+        {
+            <tr>
+                <td>@i</td>
+                <td>@product.name</td>
+                <td>@product.price</td>
+                <td>@product.productCategoryName</td>
+                <th>
+                    <a style="cursor:pointer; color:blue">Edit</a> |
+                    <a style="cursor:pointer; color:blue">Delete</a>
+                </th>
+            </tr>
+            i++;
+        }
     </tbody>
 </table>
 }

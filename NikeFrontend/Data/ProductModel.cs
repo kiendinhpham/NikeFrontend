@@ -6,7 +6,7 @@ namespace NikeFrontend.Data
     {
         public List<ProductModel> data { get; set; }
         public bool succeeded { get; set; }
-        public object error { get; set; }
+        public Error error { get; set; }
     }
 
     public class SingleProductModelRoot
@@ -22,7 +22,14 @@ namespace NikeFrontend.Data
         public string name { get; set; }
         public object image { get; set; }
         public int price { get; set; }
+        public int productCategoryId { get; set; }
         public string productCategoryName { get; set; }
+    }
+
+    public class Error
+    {
+        public string message { get; set; }
+        public int code { get; set; }
     }
 
 }
