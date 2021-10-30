@@ -65,7 +65,7 @@ else
                 <td>@product.productCategoryName</td>
                 <th>
                     <a style="cursor:pointer; color:blue">Edit</a> |
-                    <a style="cursor:pointer; color:blue">Delete</a>
+                    <a @onclick="(()=>deleteProduct(product.id))" style="cursor:pointer; color:red">Delete</a>
                 </th>
             </tr>
             i++;

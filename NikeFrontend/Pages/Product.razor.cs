@@ -68,5 +68,12 @@ namespace NikeFrontend.Pages
             await getListProduct();
         }
 
+        public async Task deleteProduct(int id)
+        {
+            HttpResponseMessage response = await _productService.deleteProduct(id);
+            Console.WriteLine(response);
+            await getListProduct();
+        }
+
     }
 }
