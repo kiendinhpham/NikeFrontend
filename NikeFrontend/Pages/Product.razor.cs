@@ -1,11 +1,14 @@
 ﻿using Blazored.Toast.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using NikeFrontend.Data;
 using NikeFrontend.Services;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 
 namespace NikeFrontend.Pages
 {
@@ -15,6 +18,8 @@ namespace NikeFrontend.Pages
         public IHttpClientFactory _clientFactory { get; set; }
         [Inject]
         public IToastService _toastService { get; set; }
+        [Inject]
+        public IWebHostEnvironment env { get; set; }
         [Inject]
         public ProductService _productService { get; set; }
         [Inject]
@@ -33,7 +38,7 @@ namespace NikeFrontend.Pages
 
         public int idForDelete { get; set; }
         public string nameForDelete { get; set; }
-
+        IBrowserFile file;
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             Console.WriteLine("Product - OnAfterRenderAsync - firstRender = " + firstRender);
@@ -46,6 +51,25 @@ namespace NikeFrontend.Pages
             }
 
             await base.OnAfterRenderAsync(firstRender);
+        }
+
+        private void LoadFiles(InputFileChangeEventArgs e)
+        {
+            file = e.File;
+            Console.WriteLine("selected file: " + file.Name);
+
+        }
+
+        private async Task uploadFile()
+        {
+            Stream stream = file.OpenReadStream(5000000);
+            var path = $"{env.WebRootPath}\\img\\{file.Name}";
+            FileStream fs = File.Create(path);
+            await stream.CopyToAsync(fs);
+            stream.Close();
+            fs.Close();
+            Console.WriteLine(file.Name + "uploaded");
+
         }
 
         public void passDataForDeleteModal(int id, string name)
@@ -80,6 +104,8 @@ namespace NikeFrontend.Pages
 
         public async Task updateProduct()
         {
+            editProduct.image = "img/" + file.Name;
+            await uploadFile();
             HttpResponseMessage response = await _productService.editProduct(editProduct);
             Console.WriteLine(response);
             editProduct = new ProductModel();
@@ -89,6 +115,8 @@ namespace NikeFrontend.Pages
 
         public async Task addProduct()
         {
+            newProduct.image = "img/" + file.Name;
+            await uploadFile();
             HttpResponseMessage response = await _productService.addProduct(newProduct);
             Console.WriteLine(response);
             newProduct = new ProductModel();
