@@ -5,4 +5,17 @@
 <h3>Nike Shop</h3>
 <h3>phuong</h3>
 
+@if (listProductModel != null)
+{
+    <li>
+        @foreach (var sanpham in listProductModel)
+        {
+            <ol>@sanpham.name .gia: @sanpham.price</ol>
+            <img src="@sanpham.image"/>
+        }
+
+    </li>
+}
+
+
 
