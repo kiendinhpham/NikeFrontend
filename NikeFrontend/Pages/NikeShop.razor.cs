@@ -51,5 +51,11 @@ namespace NikeFrontend.Pages
             listProductResult = await _productService.getListProduct();
             listProduct = listProductResult.data;
         }
+
+        public async Task getProduct(int id)
+        {
+            productResult = await _productService.getProduct(id);
+            product = productResult.data;
+        }
     }
 }
