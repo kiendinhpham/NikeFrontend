@@ -41,7 +41,9 @@ namespace NikeFrontend.Pages
 
         public int idForDelete { get; set; }
         public string nameForDelete { get; set; }
+
         IBrowserFile file;
+        IBrowserFile fileForEdit;
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             Console.WriteLine("Product - OnAfterRenderAsync - firstRender = " + firstRender);
@@ -62,6 +64,12 @@ namespace NikeFrontend.Pages
             Console.WriteLine("selected file: " + file.Name);
 
         }
+        private void LoadFileForEdit(InputFileChangeEventArgs e)
+        {
+            fileForEdit = e.File;
+            Console.WriteLine("selected file for edit: " + file.Name);
+
+        }
 
         private async Task uploadFile()
         {
@@ -72,7 +80,16 @@ namespace NikeFrontend.Pages
             stream.Close();
             fs.Close();
             Console.WriteLine(file.Name + "uploaded");
-
+        }
+        private async Task uploadFileForEdit()
+        {
+            Stream stream = fileForEdit.OpenReadStream(10000000);
+            var path = $"{env.WebRootPath}\\img\\{fileForEdit.Name}";
+            FileStream fs = File.Create(path);
+            await stream.CopyToAsync(fs);
+            stream.Close();
+            fs.Close();
+            Console.WriteLine(fileForEdit.Name + "uploaded for edit");
         }
 
         public void passDataForDeleteModal(int id, string name)
@@ -105,27 +122,22 @@ namespace NikeFrontend.Pages
             editProduct = productResult.data;
         }
 
-        public void reloadPage()
-        {
-            NavigationManager.NavigateTo("/product", true);
-        }
-
-
         public async Task updateProduct()
         {
-            if(file != null)
+            if(fileForEdit != null)
             {
-                editProduct.image = "img/" + file.Name;
-                await uploadFile();
+                editProduct.image = "img/" + fileForEdit.Name;
+                await uploadFileForEdit();
             }
             HttpResponseMessage response = await _productService.editProduct(editProduct);
             Console.WriteLine(response);
             editProduct = new ProductModel();
             if (response.IsSuccessStatusCode)
             {
+                await getListProductCategory();
                 await getListProduct();
+                StateHasChanged();
                 _toastService.ShowSuccess("Product updated");
-                //need to reload the whole app or the hosting will fucked up the new file, only god know why.
             }
             else
             {
@@ -144,8 +156,11 @@ namespace NikeFrontend.Pages
             Console.WriteLine(response);
             if (response.IsSuccessStatusCode)
             {
-                newProduct = new ProductModel();
+                
+                await getListProductCategory();
                 await getListProduct();
+                newProduct = new ProductModel();
+                StateHasChanged();
                 _toastService.ShowSuccess("New product added");
             }
             else
@@ -160,7 +175,9 @@ namespace NikeFrontend.Pages
             Console.WriteLine(response);
             if (response.IsSuccessStatusCode)
             {
+                await getListProductCategory();
                 await getListProduct();
+                StateHasChanged();
                 _toastService.ShowSuccess("product deleted");
             }
             else
