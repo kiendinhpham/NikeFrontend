@@ -14,7 +14,7 @@ namespace NikeFrontend.Services
             _httpClient = httpClient;
         }
 
-        public async Task<UserRootobject> LoginAsync(User user)
+        public async Task<UserDataRoot> LoginAsync(UserData user)
         {
             string serializedUser = JsonConvert.SerializeObject(user);
 
@@ -28,12 +28,12 @@ namespace NikeFrontend.Services
 
             var responseBody = await response.Content.ReadAsStringAsync();
 
-            var returnedUser = JsonConvert.DeserializeObject<UserRootobject>(responseBody);
+            var returnedUser = JsonConvert.DeserializeObject<UserDataRoot>(responseBody);
 
             return await Task.FromResult(returnedUser);
         }
 
-        public async Task<UserDataFromTokenRoot> GetUserByAccessTokenAsync(string token)
+        public async Task<UserDataRoot> GetUserByAccessTokenAsync(string token)
         {
             StringToken stringToken = new StringToken();
             stringToken.Token = token;
@@ -50,7 +50,7 @@ namespace NikeFrontend.Services
 
             var responseBody = await response.Content.ReadAsStringAsync();
 
-            var returnedUser = JsonConvert.DeserializeObject<UserDataFromTokenRoot>(responseBody);
+            var returnedUser = JsonConvert.DeserializeObject<UserDataRoot>(responseBody);
 
             return await Task.FromResult(returnedUser);
         }

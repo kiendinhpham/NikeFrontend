@@ -5,7 +5,8 @@ namespace NikeFrontend.Services
 {
     public interface IUserService
     {
-        public Task<UserRootobject> LoginAsync(User user);
-        public Task<UserDataFromTokenRoot> GetUserByAccessTokenAsync(string token);
+        public Task<UserDataRoot> LoginAsync(UserData user);
+        public Task<UserDataRoot> GetUserByAccessTokenAsync(string token);
+
     }
 }

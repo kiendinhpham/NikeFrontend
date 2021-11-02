@@ -20,7 +20,7 @@ namespace NikeFrontend.Pages
         [Inject]
         public Blazored.SessionStorage.ISessionStorageService sessionStorage { get; set; }
 
-        private User user = new User();
+        private UserData user = new UserData();
         private bool isTaskRunning = false;
         public string LoginMesssage { get; set; }
         public string loginButtonText = "Đăng Nhập";

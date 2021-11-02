@@ -26,7 +26,7 @@ namespace NikeFrontend.Services
 
             if (token != null && token != string.Empty)
             {
-                UserDataFromTokenRoot user = await _userService.GetUserByAccessTokenAsync(token);
+                UserDataRoot user = await _userService.GetUserByAccessTokenAsync(token);
                 if (user.succeeded)
                 {
                     identity = GetClaimsIdentity(user);
@@ -47,7 +47,7 @@ namespace NikeFrontend.Services
             return await Task.FromResult(new AuthenticationState(claimsPrincipal));
         }
 
-        private ClaimsIdentity GetClaimsIdentity(UserDataFromTokenRoot user)
+        private ClaimsIdentity GetClaimsIdentity(UserDataRoot user)
         {
             var claimsIdentity = new ClaimsIdentity();
 
@@ -55,7 +55,7 @@ namespace NikeFrontend.Services
             {
                 claimsIdentity = new ClaimsIdentity(new[]
                                 {
-                                    new Claim(ClaimTypes.Name, user.data.userName),
+                                    new Claim(ClaimTypes.Name, user.data.name),
                                     new Claim(ClaimTypes.Role, user.data.roles[0].name)
                                 }, "apiauth_type");
             }

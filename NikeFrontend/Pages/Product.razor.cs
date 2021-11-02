@@ -134,9 +134,7 @@ namespace NikeFrontend.Pages
             editProduct = new ProductModel();
             if (response.IsSuccessStatusCode)
             {
-                await getListProductCategory();
                 await getListProduct();
-                StateHasChanged();
                 _toastService.ShowSuccess("Product updated");
             }
             else
@@ -156,11 +154,8 @@ namespace NikeFrontend.Pages
             Console.WriteLine(response);
             if (response.IsSuccessStatusCode)
             {
-                
-                await getListProductCategory();
                 await getListProduct();
                 newProduct = new ProductModel();
-                StateHasChanged();
                 _toastService.ShowSuccess("New product added");
             }
             else
@@ -175,9 +170,7 @@ namespace NikeFrontend.Pages
             Console.WriteLine(response);
             if (response.IsSuccessStatusCode)
             {
-                await getListProductCategory();
                 await getListProduct();
-                StateHasChanged();
                 _toastService.ShowSuccess("product deleted");
             }
             else

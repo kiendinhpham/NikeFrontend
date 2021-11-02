@@ -6,7 +6,7 @@
 
 <AuthorizeView>
     <Authorized>
-        <h3><b>Welcome, @user.Identity.Name</b></h3>
+        <h3><b>Welcome @role <span style="color:blue">@user.Identity.Name</span> </b></h3>
         
     </Authorized>
     <NotAuthorized>
@@ -14,6 +14,7 @@
         
     </NotAuthorized>
 </AuthorizeView>
+
 <CatsFact></CatsFact>
 
 @code{
@@ -24,14 +25,23 @@
 
 
     bool IsUserAuthenticated;
-    bool IsAdmin;
+    string role;
 
     protected override async Task OnInitializedAsync()
     {
         user = (await authenticationStateTask).User;
 
+
+
         if (user.IsInRole("Administrator"))
-            IsAdmin = true;
+        {
+            role = "Admin";
+        }
+        if (user.IsInRole("Assistant"))
+        {
+            role = "Assistant";
+        }
+
 
         if (user.Identity.IsAuthenticated)
             IsUserAuthenticated = true;
