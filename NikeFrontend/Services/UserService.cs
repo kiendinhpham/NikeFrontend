@@ -1,6 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using Blazored.SessionStorage;
+using Newtonsoft.Json;
 using NikeFrontend.Data;
+using System;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
 
 namespace NikeFrontend.Services
@@ -8,10 +11,16 @@ namespace NikeFrontend.Services
     public class UserService : IUserService
     {
         public HttpClient _httpClient { get; }
+        private readonly IHttpClientFactory _clientFactory;
+        private readonly ISessionStorageService _sessionStorageService;
 
-        public UserService(HttpClient httpClient)
+        public UserService(HttpClient httpClient, 
+            IHttpClientFactory ClientFactory,
+            ISessionStorageService SessionStorageService)
         {
             _httpClient = httpClient;
+            _clientFactory = ClientFactory;
+            _sessionStorageService = SessionStorageService;
         }
 
         public async Task<UserDataRoot> LoginAsync(UserData user)
@@ -53,6 +62,28 @@ namespace NikeFrontend.Services
             var returnedUser = JsonConvert.DeserializeObject<UserDataRoot>(responseBody);
 
             return await Task.FromResult(returnedUser);
+        }
+
+        public async Task<ListUserDataRoot> GetAllUsers()
+        {
+            ListUserDataRoot listUserDataRoot = new ListUserDataRoot();
+            var token = await _sessionStorageService.GetItemAsync<string>("token");
+            var client = _clientFactory.CreateClient("KSC");
+            if (!string.IsNullOrEmpty(token))
+            {
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+            }
+
+            try
+            {
+                listUserDataRoot = await client.GetFromJsonAsync<ListUserDataRoot>("Login");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error:{ex.Message}");
+            }
+            
+            return await Task.FromResult(listUserDataRoot);
         }
     }
 }

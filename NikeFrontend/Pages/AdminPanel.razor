@@ -1,10 +1,48 @@
 ﻿@page "/admin"
 
 <AuthorizeView Roles="Administrator">
-    <Authorized >
+    <Authorized>
 
-        <h4><b>Welcome to Admin panel</b></h4>
-        
+        <h3><b>User List</b></h3>
+        @if (listUserData == null)
+        {
+            <p><em>Loading...</em></p>
+        }
+        else
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="text-left">Index</th>
+                        <th>Name</th>
+                        <th>Last Name</th>
+                        <th>Username</th>
+                        <th>Phone Number</th>
+
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ int i = 1;}
+                    @foreach (var User in listUserData)
+                    {
+                    <tr>
+                        <td class="text-left">@i</td>
+                        <td>@User.name</td>
+                        <td>@User.lastName</td>
+                        <td>@User.userName</td>
+                        <td>@User.phoneNumber</td>
+
+                        <td class="text-center">
+                            <button type="button" class="btn" data-toggle="modal" data-target="#ModalEdit" style="cursor:pointer; color:blue"><i class="fas fa-edit fa-lg"></i></button>
+                            <button type="button" class="btn" style="cursor:pointer; color:red" data-toggle="modal" data-target="#ModalDelete"><i class="fas fa-trash-alt fa-lg"></i></button>
+                        </td>
+                    </tr>
+                        i++;
+                    }
+                </tbody>
+            </table>
+        }
     </Authorized>
     <NotAuthorized>
         <h4><b>Đăng nhập với quyền admin để xem trang này</b></h4>
