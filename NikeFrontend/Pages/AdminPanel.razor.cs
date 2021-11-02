@@ -20,6 +20,8 @@ namespace NikeFrontend.Pages
         public ListUserDataRoot userDataResult { get; set; }
         public List<UserData> listUserData { get; set; }
 
+        private UserData newUser = new UserData();
+
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
 
@@ -37,5 +39,6 @@ namespace NikeFrontend.Pages
             userDataResult = await _userService.GetAllUsers();
             listUserData = userDataResult.data;
         }
+
     }
 }

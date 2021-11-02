@@ -31,6 +31,7 @@ namespace NikeFrontend.Data
         public string lastName { get; set; }
         public string phoneNumber { get; set; }
         public List<Role> roles { get; set; }
+        public string roleId { get; set; }
         public string Password { get; set; }
         public string token { get; set; }
     }
