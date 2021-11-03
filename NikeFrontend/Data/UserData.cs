@@ -11,9 +11,14 @@ namespace NikeFrontend.Data
         public UserData data { get; set; }
         public bool succeeded { get; set; }
         public object error { get; set; }
-        
-    }
 
+    }
+    public class ListRoleDataRoot
+    {
+        public List<Role> data { get; set; }
+        public bool succeeded { get; set; }
+        public object error { get; set; }
+    }
     public class ListUserDataRoot
     {
         public List<UserData> data { get; set; }

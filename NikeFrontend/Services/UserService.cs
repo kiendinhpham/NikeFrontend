@@ -85,5 +85,27 @@ namespace NikeFrontend.Services
             
             return await Task.FromResult(listUserDataRoot);
         }
+
+        public async Task<ListRoleDataRoot> GetAllRoles()
+        {
+            ListRoleDataRoot listRoleDataRoot = new ListRoleDataRoot();
+            var token = await _sessionStorageService.GetItemAsync<string>("token");
+            var client = _clientFactory.CreateClient("KSC");
+            if (!string.IsNullOrEmpty(token))
+            {
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+            }
+
+            try
+            {
+                listRoleDataRoot = await client.GetFromJsonAsync<ListRoleDataRoot>("Login/getroles");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error:{ex.Message}");
+            }
+
+            return await Task.FromResult(listRoleDataRoot);
+        }
     }
 }

@@ -19,6 +19,8 @@ namespace NikeFrontend.Pages
 
         public ListUserDataRoot userDataResult { get; set; }
         public List<UserData> listUserData { get; set; }
+        public ListRoleDataRoot roleDataResult { get; set; }
+        public List<Role> listRoleData { get; set; }
 
         private UserData newUser = new UserData();
 
@@ -28,6 +30,7 @@ namespace NikeFrontend.Pages
             if (firstRender)
             {
                 await getListUser();
+                await getListRole();
                 StateHasChanged();
             }
 
@@ -38,6 +41,11 @@ namespace NikeFrontend.Pages
         {
             userDataResult = await _userService.GetAllUsers();
             listUserData = userDataResult.data;
+        }
+        public async Task getListRole()
+        {
+            roleDataResult = await _userService.GetAllRoles();
+            listRoleData = roleDataResult.data;
         }
 
     }

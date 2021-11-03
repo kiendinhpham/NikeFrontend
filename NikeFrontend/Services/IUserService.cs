@@ -8,6 +8,6 @@ namespace NikeFrontend.Services
         public Task<UserDataRoot> LoginAsync(UserData user);
         public Task<UserDataRoot> GetUserByAccessTokenAsync(string token);
         public Task<ListUserDataRoot> GetAllUsers();
-
+        public Task<ListRoleDataRoot> GetAllRoles();
     }
 }
