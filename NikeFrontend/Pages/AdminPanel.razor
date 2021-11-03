@@ -4,7 +4,7 @@
     <Authorized>
         <h3><b>Add User</b></h3>
         <div class="create-form">
-            <EditForm Context="form" Model="@newUser">
+            <EditForm Context="form" Model="@newUser" OnValidSubmit="(()=>addProduct())">
                 <div class="form-group row">
                     <label for="newProductName" class="col-sm-2 col-form-label">Username</label>
                     <div class="col-sm-10">
@@ -34,8 +34,32 @@
                         </select>
                     </div>
                 </div>
-                
-                <button type="submit" class="btn btn-primary"><i class="fas fa-plus-square"></i> &nbsp;&nbsp; Add Product</button>
+                <div class="form-group row">
+                    <label for="newProductPrice" class="col-sm-2 col-form-label">Email</label>
+                    <div class="col-sm-10">
+                        <input @bind="newUser.email" type="email" class="form-control" id="newProductPrice" placeholder="Email">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="newProductPrice" class="col-sm-2 col-form-label">Name</label>
+                    <div class="col-sm-10">
+                        <input @bind="newUser.name" type="text" class="form-control" id="newProductPrice" placeholder="Name">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="newProductPrice" class="col-sm-2 col-form-label">Last Name</label>
+                    <div class="col-sm-10">
+                        <input @bind="newUser.lastName" type="text" class="form-control" id="newProductPrice" placeholder="Last name">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="newProductPrice" class="col-sm-2 col-form-label">Phone Number</label>
+                    <div class="col-sm-10">
+                        <input @bind="newUser.phoneNumber" type="tel" class="form-control" id="newProductPrice" placeholder="Phone Number">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary"><i class="fas fa-plus-square"></i> &nbsp;&nbsp; Add User</button>
                 <button type="reset" class="btn btn-primary"><i class="fas fa-redo"></i> &nbsp;&nbsp; Reset</button>
             </EditForm>
         </div>

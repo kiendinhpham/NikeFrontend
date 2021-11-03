@@ -1,4 +1,5 @@
 ﻿using NikeFrontend.Data;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace NikeFrontend.Services
@@ -9,5 +10,6 @@ namespace NikeFrontend.Services
         public Task<UserDataRoot> GetUserByAccessTokenAsync(string token);
         public Task<ListUserDataRoot> GetAllUsers();
         public Task<ListRoleDataRoot> GetAllRoles();
+        public Task<HttpResponseMessage> AddUser(UserData user);
     }
 }

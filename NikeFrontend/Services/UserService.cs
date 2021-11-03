@@ -107,5 +107,17 @@ namespace NikeFrontend.Services
 
             return await Task.FromResult(listRoleDataRoot);
         }
+
+        public async Task<HttpResponseMessage> AddUser(UserData user)
+        {
+            var token = await _sessionStorageService.GetItemAsync<string>("token");
+            var client = _clientFactory.CreateClient("KSC");
+            if (!string.IsNullOrEmpty(token))
+            {
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+            }
+            var result = await client.PostAsJsonAsync("Login/adduser", user);
+            return await Task.FromResult(result);
+        }
     }
 }

@@ -16,6 +16,8 @@ namespace NikeFrontend.Pages
     {
         [Inject]
         public IUserService _userService { get; set; }
+        [Inject]
+        public IToastService _toastService { get; set; }
 
         public ListUserDataRoot userDataResult { get; set; }
         public List<UserData> listUserData { get; set; }
@@ -48,5 +50,20 @@ namespace NikeFrontend.Pages
             listRoleData = roleDataResult.data;
         }
 
+        public async Task addProduct()
+        {
+            HttpResponseMessage response = await _userService.AddUser(newUser);
+            Console.WriteLine(response);
+            if (response.IsSuccessStatusCode)
+            {
+                await getListUser();
+                newUser = new UserData();
+                _toastService.ShowSuccess("New user added");
+            }
+            else
+            {
+                _toastService.ShowError("There was an error");
+            }
+        }
     }
 }
