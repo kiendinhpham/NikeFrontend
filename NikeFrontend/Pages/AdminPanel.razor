@@ -27,7 +27,7 @@
                     <label for="roleOfUser" class="col-sm-2 col-form-label">Role</label>
                     <div class="col-sm-10">
                         <select required @bind="@newUser.roleId" id="roleOfUser" class="form-control">
-
+                            <option value="-1" selected>Choose...</option>
                             @if (listRoleData != null)
                             {
                                 @foreach (var role in listRoleData)
@@ -135,6 +135,6 @@
         </div>
     </Authorized>
     <NotAuthorized>
-        <h4><b>Đăng nhập với quyền admin để xem trang này</b></h4>
+        <h4><b>Login with Admin account to view this page</b></h4>
     </NotAuthorized>
 </AuthorizeView>
