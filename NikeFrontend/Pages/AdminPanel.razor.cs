@@ -27,6 +27,7 @@ namespace NikeFrontend.Pages
         private UserData newUser = new UserData();
         public string userNameForDelete { get; set; }
         public string userIdForDelete { get; set; }
+        public string confirmPassword { get; set; }
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
 
@@ -57,19 +58,26 @@ namespace NikeFrontend.Pages
             listRoleData = roleDataResult.data;
         }
 
-        public async Task addProduct()
+        public async Task addUser()
         {
-            HttpResponseMessage response = await _userService.AddUser(newUser);
-            Console.WriteLine(response);
-            if (response.IsSuccessStatusCode)
+            if(confirmPassword == newUser.Password)
             {
-                await getListUser();
-                newUser = new UserData();
-                _toastService.ShowSuccess("New user added");
+                HttpResponseMessage response = await _userService.AddUser(newUser);
+                Console.WriteLine(response);
+                if (response.IsSuccessStatusCode)
+                {
+                    await getListUser();
+                    newUser = new UserData();
+                    _toastService.ShowSuccess("New user added");
+                }
+                else
+                {
+                    _toastService.ShowError("There was an error");
+                }
             }
             else
             {
-                _toastService.ShowError("There was an error");
+                _toastService.ShowWarning("Please make sure your password match");
             }
         }
 

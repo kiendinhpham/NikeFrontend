@@ -4,24 +4,29 @@
     <Authorized>
         <h3><b>Add User</b></h3>
         <div class="create-form">
-            <EditForm Context="form" Model="@newUser" OnValidSubmit="(()=>addProduct())">
+            <EditForm Context="form" Model="@newUser" OnValidSubmit="(()=>addUser())">
                 <div class="form-group row">
-                    <label for="newProductName" class="col-sm-2 col-form-label">Username</label>
+                    <label for="newUserName" class="col-sm-2 col-form-label">Username</label>
                     <div class="col-sm-10">
-                        <input @bind="newUser.userName" type="text" class="form-control" id="newProductName" placeholder="Username">
+                        <input required @bind="newUser.userName" type="text" class="form-control" id="newUserName" placeholder="Username">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="newProductPrice" class="col-sm-2 col-form-label">Password</label>
+                    <label for="newUserPass" class="col-sm-2 col-form-label">Password</label>
                     <div class="col-sm-10">
-                        <input @bind="newUser.Password" type="text" class="form-control" id="newProductPrice" placeholder="Password">
+                        <input required @bind="newUser.Password" type="password" autocomplete="new-password" class="form-control" id="newUserPass" placeholder="Password">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="newCategoryOfProduct" class="col-sm-2 col-form-label">Role</label>
+                    <label for="newUserConfirmPass" class="col-sm-2 col-form-label">Confirm Password</label>
                     <div class="col-sm-10">
-                        <select @bind="@newUser.roleId" id="newCategoryOfProduct" class="form-control">
-                            <option value="-1" selected>Choose...</option>
+                        <input required @bind="confirmPassword" type="password" autocomplete="new-password" class="form-control" id="newUserConfirmPass" placeholder="Confirm Password">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="roleOfUser" class="col-sm-2 col-form-label">Role</label>
+                    <div class="col-sm-10">
+                        <select required @bind="@newUser.roleId" id="roleOfUser" class="form-control">
 
                             @if (listRoleData != null)
                             {
@@ -98,7 +103,6 @@
                             <td>@User.roles[0].name</td>
 
                             <td class="text-center">
-                                <button type="button" class="btn" data-toggle="modal" data-target="#ModalEdit" style="cursor:pointer; color:blue"><i class="fas fa-edit fa-lg"></i></button>
                                 <button type="button" class="btn" @onclick="(()=>passDataForDeleteModal(User.id,User.name))" style="cursor:pointer; color:red" data-toggle="modal" data-target="#ModalDelete"><i class="fas fa-trash-alt fa-lg"></i></button>
                             </td>
                         </tr>
@@ -114,7 +118,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Delete Product</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>

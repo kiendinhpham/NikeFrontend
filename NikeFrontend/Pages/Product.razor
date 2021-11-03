@@ -7,19 +7,19 @@
         <div class="form-group row">
             <label for="newProductName" class="col-sm-2 col-form-label">Product Name</label>
             <div class="col-sm-10">
-                <input @bind="newProduct.name" type="text" class="form-control" id="newProductName" placeholder="Product Name">
+                <input required @bind="newProduct.name" type="text" class="form-control" id="newProductName" placeholder="Product Name">
             </div>
         </div>
         <div class="form-group row">
             <label for="newProductPrice" class="col-sm-2 col-form-label">Price</label>
             <div class="col-sm-10">
-                <input @bind="newProduct.price" type="number" class="form-control" id="newProductPrice" placeholder="Price">
+                <input required @bind="newProduct.price" type="number" class="form-control" id="newProductPrice" placeholder="Price">
             </div>
         </div>
         <div class="form-group row">
             <label for="newCategoryOfProduct" class="col-sm-2 col-form-label">Category</label>
             <div class="col-sm-10">
-                <select @bind="@newProduct.productCategoryId" id="newCategoryOfProduct" class="form-control">
+                <select required @bind="@newProduct.productCategoryId" id="newCategoryOfProduct" class="form-control">
                     <option value="-1" selected>Choose...</option>
                     @if (listProductCategory != null)
                     {
