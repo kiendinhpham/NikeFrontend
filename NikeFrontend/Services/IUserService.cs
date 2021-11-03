@@ -11,5 +11,6 @@ namespace NikeFrontend.Services
         public Task<ListUserDataRoot> GetAllUsers();
         public Task<ListRoleDataRoot> GetAllRoles();
         public Task<HttpResponseMessage> AddUser(UserData user);
+        public Task<HttpResponseMessage> DeleteUser(string id);
     }
 }

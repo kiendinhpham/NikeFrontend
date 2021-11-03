@@ -119,5 +119,17 @@ namespace NikeFrontend.Services
             var result = await client.PostAsJsonAsync("Login/adduser", user);
             return await Task.FromResult(result);
         }
+
+        public async Task<HttpResponseMessage> DeleteUser(string id)
+        {
+            var token = await _sessionStorageService.GetItemAsync<string>("token");
+            var client = _clientFactory.CreateClient("KSC");
+            if (!string.IsNullOrEmpty(token))
+            {
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+            }
+            var result = await client.DeleteAsync($"Login/{id}");
+            return await Task.FromResult(result);
+        }
     }
 }

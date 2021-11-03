@@ -25,7 +25,8 @@ namespace NikeFrontend.Pages
         public List<Role> listRoleData { get; set; }
 
         private UserData newUser = new UserData();
-
+        public string userNameForDelete { get; set; }
+        public string userIdForDelete { get; set; }
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
 
@@ -37,6 +38,12 @@ namespace NikeFrontend.Pages
             }
 
             await base.OnAfterRenderAsync(firstRender);
+        }
+
+        public void passDataForDeleteModal(string id, string name)
+        {
+            userIdForDelete = id;
+            userNameForDelete = name;
         }
 
         public async Task getListUser()
@@ -59,6 +66,21 @@ namespace NikeFrontend.Pages
                 await getListUser();
                 newUser = new UserData();
                 _toastService.ShowSuccess("New user added");
+            }
+            else
+            {
+                _toastService.ShowError("There was an error");
+            }
+        }
+
+        public async Task deleteUser(string id)
+        {
+            HttpResponseMessage response = await _userService.DeleteUser(id);
+            Console.WriteLine(response);
+            if (response.IsSuccessStatusCode)
+            {
+                await getListUser();
+                _toastService.ShowSuccess("User deleted");
             }
             else
             {

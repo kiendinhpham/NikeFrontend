@@ -99,7 +99,7 @@
 
                             <td class="text-center">
                                 <button type="button" class="btn" data-toggle="modal" data-target="#ModalEdit" style="cursor:pointer; color:blue"><i class="fas fa-edit fa-lg"></i></button>
-                                <button type="button" class="btn" style="cursor:pointer; color:red" data-toggle="modal" data-target="#ModalDelete"><i class="fas fa-trash-alt fa-lg"></i></button>
+                                <button type="button" class="btn" @onclick="(()=>passDataForDeleteModal(User.id,User.name))" style="cursor:pointer; color:red" data-toggle="modal" data-target="#ModalDelete"><i class="fas fa-trash-alt fa-lg"></i></button>
                             </td>
                         </tr>
                         i++;
@@ -107,6 +107,28 @@
                 </tbody>
             </table>
         }
+
+
+        <!-- Modal delete user -->
+        <div class="modal fade" id="ModalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Delete Product</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete user @userNameForDelete ?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button @onclick="(()=>deleteUser(userIdForDelete))" data-dismiss="modal" type="button" class="btn btn-danger">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </Authorized>
     <NotAuthorized>
         <h4><b>Đăng nhập với quyền admin để xem trang này</b></h4>
