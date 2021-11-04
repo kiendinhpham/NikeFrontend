@@ -44,8 +44,6 @@ namespace NikeFrontend.Pages
         public string keyword { get; set; } = null;
         public int pageSize { get; set; } = 5;
         public int pageNumber { get; set; } = 1;
-        private bool previousButtonDisable = true;
-        private bool NextButtonDisable = true;
 
         IBrowserFile file;
         IBrowserFile fileForEdit;
