@@ -51,11 +51,11 @@
     </div>
 </div>
 
-@if (listProductResult == null)
+@if (ProductPageRoot == null)
 {
     <p><em>Loading...</em></p>
 }
-else if (listProductResult.succeeded)
+else if (ProductPageRoot.succeeded)
 {
     <table class="table">
         <thead>
@@ -93,7 +93,7 @@ else if (listProductResult.succeeded)
 }
 else
 {
-    <p><em>@listProductResult.error.message</em></p>
+    <p><em>@ProductPageRoot.error.message</em></p>
 }
 
 

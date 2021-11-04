@@ -32,4 +32,21 @@ namespace NikeFrontend.Data
         public int code { get; set; }
     }
 
+    public class ProductPageRoot
+    {
+        public ProductPageData data { get; set; }
+        public bool succeeded { get; set; }
+        public Error error { get; set; }
+    }
+
+    public class ProductPageData
+    {
+        public List<ProductModel> items { get; set; }
+        public int pageIndex { get; set; }
+        public int totalPages { get; set; }
+        public int totalCount { get; set; }
+        public bool hasPreviousPage { get; set; }
+        public bool hasNextPage { get; set; }
+    }
+
 }

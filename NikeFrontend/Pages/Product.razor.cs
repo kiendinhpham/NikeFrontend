@@ -28,6 +28,8 @@ namespace NikeFrontend.Pages
 
         public ListProductModelRoot listProductResult { get; set; }
         public SingleProductModelRoot productResult { get; set; }
+        public ProductPageRoot ProductPageRoot { get; set; }
+        public ProductPageData ProductPageData { get; set; }
         public ProductCategoryModelRootobject listProductCategoryResult { get; set; }
         public List<ProductCategoryModel> listProductCategory { get; set; }
 
@@ -40,6 +42,8 @@ namespace NikeFrontend.Pages
         public int idForDelete { get; set; }
         public string nameForDelete { get; set; }
         public string keyword { get; set; } = null;
+        public int pageSize { get; set; } = 5;
+        public int pageNumber { get; set; } = 1;
 
         IBrowserFile file;
         IBrowserFile fileForEdit;
@@ -105,15 +109,24 @@ namespace NikeFrontend.Pages
 
         public async Task getListProduct()
         {
-            listProductResult = await _productService.getListProduct(keyword);
-            listProduct = listProductResult.data;
+            ProductPageRoot = await _productService.getListProductPaging(keyword,pageNumber,pageSize);
+            if (ProductPageRoot.succeeded)
+            {
+                ProductPageData = ProductPageRoot.data;
+                listProduct = ProductPageData.items;
+            }
         }
 
         public async Task resetSearch()
         {
             keyword = null;
-            listProductResult = await _productService.getListProduct(keyword);
-            listProduct = listProductResult.data;
+            pageNumber = 1;
+            ProductPageRoot = await _productService.getListProductPaging(keyword, pageNumber, pageSize);
+            if (ProductPageRoot.succeeded)
+            {
+                ProductPageData = ProductPageRoot.data;
+                listProduct = ProductPageData.items;
+            }
         }
 
         public async Task getProduct(int id)

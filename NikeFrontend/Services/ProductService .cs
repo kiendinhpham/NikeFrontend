@@ -25,6 +25,13 @@ namespace NikeFrontend.Services
             return await Task.FromResult(result);
         }
 
+        public async Task<ProductPageRoot> getListProductPaging(string keyword, int pageNumber, int pageSize)
+        {
+            var client = _clientFactory.CreateClient("KSC");
+            var result = await client.GetFromJsonAsync<ProductPageRoot>($"Products/page?pageNumber={pageNumber}&pageSize={pageSize}&keyword={keyword}");
+            return await Task.FromResult(result);
+        }
+
         public async Task<SingleProductModelRoot> getProduct(int id)
         {
             var client = _clientFactory.CreateClient("KSC");
