@@ -16,8 +16,6 @@ namespace NikeFrontend.Pages
     public partial class Product
     {
         [Inject]
-        public IHttpClientFactory _clientFactory { get; set; }
-        [Inject]
         public IToastService _toastService { get; set; }
         [Inject]
         public IWebHostEnvironment env { get; set; }
@@ -41,6 +39,7 @@ namespace NikeFrontend.Pages
 
         public int idForDelete { get; set; }
         public string nameForDelete { get; set; }
+        public string keyword { get; set; } = null;
 
         IBrowserFile file;
         IBrowserFile fileForEdit;
@@ -106,7 +105,14 @@ namespace NikeFrontend.Pages
 
         public async Task getListProduct()
         {
-            listProductResult = await _productService.getListProduct();
+            listProductResult = await _productService.getListProduct(keyword);
+            listProduct = listProductResult.data;
+        }
+
+        public async Task resetSearch()
+        {
+            keyword = null;
+            listProductResult = await _productService.getListProduct(keyword);
             listProduct = listProductResult.data;
         }
 

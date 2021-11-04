@@ -25,6 +25,7 @@ namespace NikeFrontend.Pages
         public List<ProductCategoryModel> listProductCategory { get; set; }
         public List<ProductModel> listProduct { get; set; }
         public ProductModel product { get; set; }
+        public string keyword { get; set; }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -48,7 +49,7 @@ namespace NikeFrontend.Pages
 
         public async Task getListProduct()
         {
-            listProductResult = await _productService.getListProduct();
+            listProductResult = await _productService.getListProduct(keyword);
             listProduct = listProductResult.data;
         }
 

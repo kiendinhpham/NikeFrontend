@@ -18,10 +18,10 @@ namespace NikeFrontend.Services
             _sessionStorageService = SessionStorageService;
         }
 
-        public async Task<ListProductModelRoot> getListProduct()
+        public async Task<ListProductModelRoot> getListProduct(string keyword)
         {
             var client = _clientFactory.CreateClient("KSC");
-            var result = await client.GetFromJsonAsync<ListProductModelRoot>("Products/list");
+            var result = await client.GetFromJsonAsync<ListProductModelRoot>($"Products/list?keyword={keyword}");
             return await Task.FromResult(result);
         }
 
