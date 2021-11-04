@@ -44,6 +44,8 @@ namespace NikeFrontend.Pages
         public string keyword { get; set; } = null;
         public int pageSize { get; set; } = 5;
         public int pageNumber { get; set; } = 1;
+        private bool previousButtonDisable = true;
+        private bool NextButtonDisable = true;
 
         IBrowserFile file;
         IBrowserFile fileForEdit;
@@ -121,6 +123,27 @@ namespace NikeFrontend.Pages
         {
             keyword = null;
             pageNumber = 1;
+            ProductPageRoot = await _productService.getListProductPaging(keyword, pageNumber, pageSize);
+            if (ProductPageRoot.succeeded)
+            {
+                ProductPageData = ProductPageRoot.data;
+                listProduct = ProductPageData.items;
+            }
+        }
+
+        public async Task nextPage()
+        {
+            pageNumber++;
+            ProductPageRoot = await _productService.getListProductPaging(keyword, pageNumber, pageSize);
+            if (ProductPageRoot.succeeded)
+            {
+                ProductPageData = ProductPageRoot.data;
+                listProduct = ProductPageData.items;
+            }
+        }
+        public async Task previousPage()
+        {
+            pageNumber--;
             ProductPageRoot = await _productService.getListProductPaging(keyword, pageNumber, pageSize);
             if (ProductPageRoot.succeeded)
             {
