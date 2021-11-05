@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\NikeShop\css\NewFolder\**" />
+    <Content Remove="wwwroot\NikeShop\css\NewFolder\**" />
+    <EmbeddedResource Remove="wwwroot\NikeShop\css\NewFolder\**" />
+    <None Remove="wwwroot\NikeShop\css\NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Blazored.SessionStorage" Version="2.2.0" />
     <PackageReference Include="Blazored.Toast" Version="3.2.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
