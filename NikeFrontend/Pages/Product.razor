@@ -68,9 +68,9 @@ else
 
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-end">
-                    <li class="page-item"> <button disabled="@(!ProductPageData.hasPreviousPage)" @onclick="previousPage" class="page-link">Previous</button> </li>
+                    <li class="page-item"> <button disabled="@(!ProductPageData.hasPreviousPage)" @onclick="previousPage" class="page-link"><i class="fas fa-arrow-left"></i></button> </li>
                     <li class="page-item"><p class="page-link">@ProductPageData.pageIndex/@ProductPageData.totalPages</p></li>
-                    <li class="page-item"> <button disabled="@(!ProductPageData.hasNextPage)" @onclick="nextPage" class="page-link">Next</button> </li>
+                    <li class="page-item"> <button disabled="@(!ProductPageData.hasNextPage)" @onclick="nextPage" class="page-link"><i class="fas fa-arrow-right"></i></button> </li>
                 </ul>
             </nav>
 
