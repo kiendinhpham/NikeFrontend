@@ -53,7 +53,7 @@ else
 {
 
     <div class="row">
-        <div class="col-7">
+        <div class="col-6">
 
             <div class="input-group mb-3">
                 <input @bind="keyword" type="text" class="form-control" placeholder="Product name" aria-label="Recipient's username" aria-describedby="basic-addon2">
@@ -64,7 +64,7 @@ else
             </div>
 
         </div>
-        <div class="col-5">
+        <div class="col-6">
 
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-end">
@@ -79,39 +79,42 @@ else
 
     @if (ProductPageRoot.succeeded)
     {
-        <table class="table">
-            <thead>
-                <tr>
-                    <th class="text-left">Index</th>
-                    <th>Image</th>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Category</th>
-                    <th class="text-center">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @{ int i = 1;}
-                @foreach (var product in listProduct)
-                {
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead class="thead-dark">
                     <tr>
-                        <td class="text-left">@i</td>
-                        <td><img style=" width: 70px; height: 70px;" src="@product.image" /></td>
-                        <td>@product.name</td>
-                        <td>@product.price.ToString("c")</td>
-                        <td>@product.productCategoryName</td>
-                        <td class="text-center">
-                            <button type="button" class="btn" @onclick="(()=>getProductForModalEdit(product.id))" data-toggle="modal" data-target="#ModalEdit" style="cursor:pointer; color:blue"><i class="fas fa-edit fa-lg"></i></button>
-                            <button type="button" class="btn" @onclick="(()=>passDataForDeleteModal(product.id,product.name))" style="cursor:pointer; color:red" data-toggle="modal" data-target="#ModalDelete"><i class="fas fa-trash-alt fa-lg"></i></button>
-                        </td>
+                        <th class="text-left">#</th>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Category</th>
+                        <th class="text-center">Action</th>
                     </tr>
-                    i++;
-                }
+                </thead>
+                <tbody>
+                    @{ int i = 1;}
+                    @foreach (var product in listProduct)
+                    {
+                        <tr>
+                            <td class="text-left">@i</td>
+                            <td><img style=" width: 70px; height: 70px;" src="@product.image" /></td>
+                            <td>@product.name</td>
+                            <td>@product.price.ToString("c")</td>
+                            <td>@product.productCategoryName</td>
+                            <td class="text-center">
+                                <button type="button" class="btn" @onclick="(()=>getProductForModalEdit(product.id))" data-toggle="modal" data-target="#ModalEdit" style="cursor:pointer; color:blue"><i class="fas fa-edit fa-lg"></i></button>
+                                <button type="button" class="btn" @onclick="(()=>passDataForDeleteModal(product.id,product.name))" style="cursor:pointer; color:red" data-toggle="modal" data-target="#ModalDelete"><i class="fas fa-trash-alt fa-lg"></i></button>
+                            </td>
+                        </tr>
+                        i++;
+                    }
 
 
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
+        
     }
     else
     {
@@ -127,7 +130,7 @@ else
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Delete Product</h5>
+                <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-trash-alt fa-lg"></i> &nbsp; Delete Product</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -148,7 +151,7 @@ else
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Delete Product</h5>
+                <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-edit fa-lg"></i> &nbsp; Edit Product</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
