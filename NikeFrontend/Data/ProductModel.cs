@@ -49,4 +49,5 @@ namespace NikeFrontend.Data
         public bool hasNextPage { get; set; }
     }
 
+
 }

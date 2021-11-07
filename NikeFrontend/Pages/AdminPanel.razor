@@ -77,39 +77,44 @@
         }
         else
         {
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th class="text-left">Index</th>
-                        <th>Name</th>
-                        <th>Last Name</th>
-                        <th>Username</th>
-                        <th>Phone Number</th>
-                        <th>Role</th>
-
-                        <th class="text-center">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @{ int i = 1;}
-                    @foreach (var User in listUserData)
-                    {
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
                         <tr>
-                            <td class="text-left">@i</td>
-                            <td>@User.name</td>
-                            <td>@User.lastName</td>
-                            <td>@User.userName</td>
-                            <td>@User.phoneNumber</td>
-                            <td>@User.roles[0].name</td>
+                            <th class="text-left">#</th>
+                            <th>Name</th>
+                            <th>Last Name</th>
+                            <th>Username</th>
+                            <th>Phone Number</th>
+                            <th>Email</th>
+                            <th>Role</th>
 
-                            <td class="text-center">
-                                <button type="button" class="btn" @onclick="(()=>passDataForDeleteModal(User.id,User.name))" style="cursor:pointer; color:red" data-toggle="modal" data-target="#ModalDelete"><i class="fas fa-trash-alt fa-lg"></i></button>
-                            </td>
+                            <th class="text-center">Action</th>
                         </tr>
-                        i++;
-                    }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @{ int i = 1;}
+                        @foreach (var User in listUserData)
+                        {
+                            <tr>
+                                <td class="text-left">@i</td>
+                                <td>@User.name</td>
+                                <td>@User.lastName</td>
+                                <td>@User.userName</td>
+                                <td>@User.phoneNumber</td>
+                                <td>@User.email</td>
+                                <td>@User.roles[0].name</td>
+
+                                <td class="text-center">
+                                    <button type="button" class="btn" @onclick="(()=>passDataForDeleteModal(User.id,User.name))" style="cursor:pointer; color:red" data-toggle="modal" data-target="#ModalDelete"><i class="fas fa-trash-alt fa-lg"></i></button>
+                                </td>
+                            </tr>
+                            i++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+            
         }
 
 
@@ -118,7 +123,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
+                        <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-trash-alt fa-lg"></i> &nbsp; Delete User</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
